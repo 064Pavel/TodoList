@@ -20,11 +20,6 @@ return new class extends Migration {
             $table->date('date')->default(today());
             $table->boolean('is_done')->default(false);
 
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
             $table->foreignId('priority_id')
                 ->default(1)
                 ->constrained()

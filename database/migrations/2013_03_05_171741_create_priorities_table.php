@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('priorities', function (Blueprint $table) {
             $table->id();
-            $table->string('priority');
+            $table->string('priority')->default(1)->unique();
         });
     }
 
