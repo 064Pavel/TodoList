@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <button class="btn btn-success">click</button>
-    </div>
+
 </template>
 
 <script>
