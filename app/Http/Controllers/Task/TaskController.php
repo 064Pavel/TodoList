@@ -14,7 +14,7 @@ class TaskController extends Controller
 
     public function index() : ResourceCollection
     {
-        $tasks = Task::with('priority')->with('user')->get();
+        $tasks = Task::all();
 
         return TaskResource::collection($tasks);
     }
@@ -30,15 +30,16 @@ class TaskController extends Controller
     }
 
 
-    public function show(Task $task) : ResourceCollection
+    public function show(Task $task)
     {
-        return new ResourceCollection(Task::with('priority')->with('user')->find($task));
+
+        return new TaskResource($task);
     }
 
 
-    public function update(Request $request, $id)
+    public function update(TaskStoreRequest $request, Task $task)
     {
-        //
+
     }
 
 
