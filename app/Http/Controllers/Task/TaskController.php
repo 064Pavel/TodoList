@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Task\TaskStoreRequest;
 use App\Http\Resources\Task\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -10,57 +11,37 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index() : ResourceCollection
     {
-        $tasks = Task::all();
+        $tasks = Task::with('priority')->with('user')->get();
+
         return TaskResource::collection($tasks);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(TaskStoreRequest $request) : TaskResource
     {
-        //
+        $created_task = Task::create($request->validated());
+
+        return new TaskResource($created_task);
+
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show(Task $task) : ResourceCollection
     {
-        //
+        return new ResourceCollection(Task::with('priority')->with('user')->find($task));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

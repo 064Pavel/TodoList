@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Task;
 
+use App\Http\Resources\Priority\PriorityResource;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TaskResource extends JsonResource
@@ -19,7 +21,8 @@ class TaskResource extends JsonResource
             'notes' => $this->notes,
             'date' => $this->date,
             'is_done' => $this->is_done,
-            'priority' => $this->priority,
+            'priority' => new PriorityResource($this->priority),
+            'user' => new UserResource($this->user),
             'created_at' => $this->created_at
         ];
     }

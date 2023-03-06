@@ -20,11 +20,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreignId('task_id')
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
         });
     }
 
