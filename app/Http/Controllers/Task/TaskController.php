@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\TaskStoreRequest;
 use App\Http\Resources\Task\TaskResource;
 use App\Models\Task;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class TaskController extends Controller
 {
@@ -39,12 +41,16 @@ class TaskController extends Controller
 
     public function update(TaskStoreRequest $request, Task $task)
     {
+        $task->update($request->validated());
 
+        return new TaskResource($task);
     }
 
 
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return response(null, ResponseAlias::HTTP_NO_CONTENT);
     }
 }
