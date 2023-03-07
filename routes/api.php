@@ -19,7 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => 'auth:sanctum'], function (){
+    Route::resources([
+        'tasks' => TaskController::class
+    ]);
+});
 
-Route::resources([
-    'tasks' => TaskController::class
-]);
+
